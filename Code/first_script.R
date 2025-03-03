@@ -17,7 +17,8 @@ plot(luca, filippo, pch=19, col="blue", cex=2, xlab="rubbish", ylab="biomass")
 # CRAN
 install.packages("terra")
 install.packages("devtools")
-install_github("ducciorocchini/imageRy)
+library(devtools)
+install_github("ducciorocchini/imageRy")
 
 # Rtools 4.4
 # update packages: avoid just press enter
