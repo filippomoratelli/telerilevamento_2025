@@ -64,10 +64,40 @@ plot(sent, col=cl)
 # plot only one element
 plot(sent$"b8-NIR") # or I remove the - symbol and call them b8NIR
 # or
-plot(sent[[4]]) # to plot the fourth element
+plot(sent[[4]]) # to plot the 4th band
 
 # importing several bands altogether
 sentdol = im.import("sentinel.dolomites")
 
 # importing several sets altogether
 pairs(sentdol)
+
+# viridis
+plot(sentdol, col=viridis(100))
+plot(sentdol, col=mako(100))
+plot(sentdol, col=magma(100))
+
+# Viridis colors:
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+
+ncell(sentdol) # number of pixels per band
+nlyr(sentdol) # number of bands
+ncell(sentdol) * nlyr(sentdol) # tot number of pixels
+
+# Layers
+# 1 = blue (b2)
+# 2 = green (b3)
+# 3 = red (b4)
+# 4 = NIR (b8)
+
+# Natural colors
+im.plotRGB(sentdol, r=3, g=2, b=1) # (name image, bands rgb)
+
+# False colors
+im.plotRGB(sentdol, r=4, g=3, b=2) # we sacrifice the blue band (less information)
+# plants reflect NIR, we put the NIR band on the red color so the plants will appear red
+# the non NIR bands don't really matter
+
+# Exercise: plot the image using the NIR ontop of the green/blue component of the RGB scheme
+im.plotRGB(sentdol, r=3, g=4, b=2)
+im.plotRGB(sentdol, r=3, g=2, b=4)
