@@ -61,6 +61,8 @@ p1 = ggplot(tabout, aes(x=class, y=y1992, color=class)) + geom_bar(stat="identit
 p2 = ggplot(tabout, aes(x=class, y=y2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
 p1 + p2
 
+# per avere colore riempimento = colore bordo metto fill=class nella sezione aes()
+
   # cosa carina ovvero mettere i 4 grafici insieme usando patchwork e imageRy (im.ggplot)
 p0 = im.ggplot(mato1992)
 p00 = im.ggplot(mato2006)
