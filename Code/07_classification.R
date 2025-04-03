@@ -52,16 +52,15 @@ library(ggplot2)
 p1 = ggplot(tabout, aes(x=class, y=y1992, color=class)) + geom_bar(stat="identity", fill="white")
 p2 = ggplot(tabout, aes(x=class, y=y2006, color=class)) + geom_bar(stat="identity", fill="white")
 
-# PATCHWORK unisce grafici fatti con ggplot
+    # PATCHWORK unisce grafici fatti con ggplot
 install.packages("patchwork")
 library(patchwork)
 p1 + p2
-  # scale diverse -> aggiungo un argomento +ylim(c(0,100)) nelle due funzioni ggplot
+    # scale diverse -> aggiungo un argomento +ylim(c(0,100)) nelle due funzioni ggplot
 p1 = ggplot(tabout, aes(x=class, y=y1992, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
 p2 = ggplot(tabout, aes(x=class, y=y2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
 p1 + p2
-
-# per avere colore riempimento = colore bordo metto fill=class nella sezione aes()
+    # per avere colore riempimento = colore bordo metto fill=class nella sezione aes()
 
   # cosa carina ovvero mettere i 4 grafici insieme usando patchwork e imageRy (im.ggplot)
 p0 = im.ggplot(mato1992)
@@ -70,3 +69,37 @@ p0 + p00 + p1 + p2
 
   # altre disposizioni usando patchwork
 p1 / p2 # uno sull'altro
+
+
+# 3 aprile
+        # Solar Orbiter
+im.list()
+solar = im.import("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")
+
+    # EX: classifica immagine in 3 classi usando im.classify() e plotta insieme
+solar_c = im.classify(solar, num_clusters=3)
+im.multiframe(1,2)
+plot(solar)
+plot(solar_c)
+
+    # rinomino le classi usando funzione subst
+# 2 = low
+# 3 = medium
+# 1 = high
+
+solar_c_s = subst(solar_c, c(2,3,1), c("c1_low","c2_medium","c3_high"))
+plot(solar_c_s)
+
+    # percentuali e dataframe
+perc_solar = freq(solar_c_s)$count * 100 / ncell(solar_c_s)
+        # high = 21%
+        # medium = 41%
+        # low = ~37%
+class = c("c1_low","c2_medium","c3_high")
+perc = c(38,41,21)
+tabsol = data.frame(class, perc)
+
+    # final ggplot
+s1 = ggplot(tabsol, aes(x=class, y=perc, fill=class, color=class)) + geom_bar(stat="identity") # + ylim(c(0,100))
+    # barre orizzontali invece che verticali si aggiunge coord_flip
+ggplot(tabsol, aes(x=class, y=perc, fill=class, color=class)) + geom_bar(stat="identity") + coord_flip()
