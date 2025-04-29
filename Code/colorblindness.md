@@ -9,3 +9,5 @@ color ramp palettes ad hoc
 pacchetto cblindplot
 
 funzione cblind.plot
+
+sul profilo di duccio c'è presentazione con info
