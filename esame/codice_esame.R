@@ -86,13 +86,13 @@ cortina_diff_ndvi = ndvi2019cortina - ndvi2025cortina   # calcolo differenza NDV
 plot(cortina_diff_ndvi, main = "Cortina 2019-2025: differenza di NDVI")
 dev.off()
 
-png("cortina_diff.png")
+png("cortina_diff.png")                                # creo png con multiframe verde + NDVI
 im.multiframe(1,2)
 plot(cortina_diff, main = "Cortina 2019-2025:\ndifferenza banda del verde")
 plot(cortina_diff_ndvi, main = "Cortina 2019-2025:\ndifferenza NDVI")
 dev.off()
 
-san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
+san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito    # ripeto (solo ndvi) per le altre località
 tai_diff_ndvi = ndvi2019tai - ndvi2025tai
 png("cadore_diff.png")
 im.multiframe(1,2)
