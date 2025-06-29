@@ -41,27 +41,15 @@ Map.addLayer(composite, {
   max: 0.3
 }, 'Median composite');
 
-// esportazione dell'immagine in GDrive (con bande red, green, blue)
+// esportazione dell'immagine in GDrive (con bande red, green, blue, nir)
 Export.image.toDrive({
-  image: composite.select(['B4', 'B3', 'B2']),  // selezione bande RGB
+  image: composite.select(['B4', 'B3', 'B2', 'B8']),  // selezione bande
   description: 'cortina_19',
   folder: 'GEE_exports',                        // nome cartella in GDrive
   fileNamePrefix: 'cortina_19',                 // nome file
   region: cortina,                              // area di interesse
   scale: 10,                                    // risoluzione di Sentinel-2 (10 km)
   crs: 'EPSG:32632',                            // sistema di riferimento per l'Italia
-  maxPixels: 1e13
-});
-
-// ripetizione dell'esportazione ma con bande NIR, red, green
-Export.image.toDrive({
-  image: composite.select(['B8', 'B4', 'B3']),  // selezione banda B8 (NIR)
-  description: 'cortina_19_nir',
-  folder: 'GEE_exports',
-  fileNamePrefix: 'cortina_19_nir',
-  region: cortina,
-  scale: 10,
-  crs: 'EPSG:32632',
   maxPixels: 1e13
 });
 
@@ -87,20 +75,10 @@ Map.addLayer(composite, {
   max: 0.3
 }, 'Median composite');
 Export.image.toDrive({
-  image: composite.select(['B4', 'B3', 'B2']),
+  image: composite.select(['B4', 'B3', 'B2', 'B8']),
   description: 'cortina_25',
   folder: 'GEE_exports',
   fileNamePrefix: 'cortina_25',
-  region: cortina,
-  scale: 10,
-  crs: 'EPSG:32632',
-  maxPixels: 1e13
-});
-Export.image.toDrive({
-  image: composite.select(['B8', 'B4', 'B3']),
-  description: 'cortina_25_nir',
-  folder: 'GEE_exports',
-  fileNamePrefix: 'cortina_25_nir',
   region: cortina,
   scale: 10,
   crs: 'EPSG:32632',
@@ -142,20 +120,10 @@ Map.addLayer(composite, {
   max: 0.3
 }, 'Median composite');
 Export.image.toDrive({
-  image: composite.select(['B4', 'B3', 'B2']),
+  image: composite.select(['B4', 'B3', 'B2', 'B8']),
   description: 'san_vito_19',
   folder: 'GEE_exports',
   fileNamePrefix: 'san_vito_19',
-  region: san_vito,
-  scale: 10,
-  crs: 'EPSG:32632',
-  maxPixels: 1e13
-});
-Export.image.toDrive({
-  image: composite.select(['B8', 'B4', 'B3']),
-  description: 'san_vito_19_nir',
-  folder: 'GEE_exports',
-  fileNamePrefix: 'san_vito_19_nir',
   region: san_vito,
   scale: 10,
   crs: 'EPSG:32632',
@@ -182,20 +150,10 @@ Map.addLayer(composite, {
   max: 0.3
 }, 'Median composite');
 Export.image.toDrive({
-  image: composite.select(['B4', 'B3', 'B2']),
+  image: composite.select(['B4', 'B3', 'B2', 'B8']),
   description: 'san_vito_25',
   folder: 'GEE_exports',
   fileNamePrefix: 'san_vito_25',
-  region: san_vito,
-  scale: 10,
-  crs: 'EPSG:32632',
-  maxPixels: 1e13
-});
-Export.image.toDrive({
-  image: composite.select(['B8', 'B4', 'B3']),
-  description: 'san_vito_25_nir',
-  folder: 'GEE_exports',
-  fileNamePrefix: 'san_vito_25_nir',
   region: san_vito,
   scale: 10,
   crs: 'EPSG:32632',
@@ -237,20 +195,10 @@ Map.addLayer(composite, {
   max: 0.3
 }, 'Median composite');
 Export.image.toDrive({
-  image: composite.select(['B4', 'B3', 'B2']),
+  image: composite.select(['B4', 'B3', 'B2', 'B8']),
   description: 'tai_19',
   folder: 'GEE_exports',
   fileNamePrefix: 'tai_19',
-  region: tai,
-  scale: 10,
-  crs: 'EPSG:32632',
-  maxPixels: 1e13
-});
-Export.image.toDrive({
-  image: composite.select(['B8', 'B4', 'B3']),
-  description: 'tai_19_nir',
-  folder: 'GEE_exports',
-  fileNamePrefix: 'tai_19_nir',
   region: tai,
   scale: 10,
   crs: 'EPSG:32632',
@@ -277,20 +225,10 @@ Map.addLayer(composite, {
   max: 0.3
 }, 'Median composite');
 Export.image.toDrive({
-  image: composite.select(['B4', 'B3', 'B2']),
+  image: composite.select(['B4', 'B3', 'B2', 'B8']),
   description: 'tai_25',
   folder: 'GEE_exports',
   fileNamePrefix: 'tai_25',
-  region: tai,
-  scale: 10,
-  crs: 'EPSG:32632',
-  maxPixels: 1e13
-});
-Export.image.toDrive({
-  image: composite.select(['B8', 'B4', 'B3']),
-  description: 'tai_25_nir',
-  folder: 'GEE_exports',
-  fileNamePrefix: 'tai_25_nir',
   region: tai,
   scale: 10,
   crs: 'EPSG:32632',
