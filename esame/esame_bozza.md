@@ -1,5 +1,5 @@
 ### Filippo Moratelli --- matricola n. 
-# L'impatto ambientale dei XXV Giochi Olimpici Invernali sulla Valle del Boite (BL)
+# L'impatto ambientale dei XXV Giochi Olimpici Invernali sulla Valle del Boite (BL) 🏔️
 
 In questo lavoro è stato analizzato tramite telerilevamento satellitare l'impatto sulla copertura forestale di alcune opere relative ai **XXV Giochi Olimpici Invernali**, previsti a Milano, Cortina d'Ampezzo e altre località delle Alpi Italiane per il febbraio 2026.
 
@@ -93,7 +93,7 @@ var tai =
         [12.376927359899774, 46.432599317650634]]], null, false);
 ```
 
-### Importazione in R
+### Importazione in R - Cortina
 Le immagini sono state poi scaricate da Google Drive, trasferite in una cartella apposita e successivamente ricaricate in **R** tramite il **pacchetto terra**.
 Altri pacchetti utilizzati sono stati:
 + **imageRy**, per la funzione di plot;
@@ -126,21 +126,21 @@ dev.off()
 
 ![cortina](https://github.com/user-attachments/assets/fa1c32f3-dbbf-4c49-9cb0-1c9b67e8e21f)
 
-*Le quattro immagini di confronto per l'area di Cortina d'Ampezzo, in colori reali (RGB) e usando la banda del vicino infrarosso per evidenziare il suolo nudo (in giallo) rispetto alla copertura vegetale (in blu). Si nota l'area della pista da bob al centro delle immagini del 2025.*
+*Le quattro immagini di confronto per l'area di Cortina d'Ampezzo, in colori reali (RGB) e usando la banda del vicino infrarosso per evidenziare il suolo nudo (in giallo) rispetto alla copertura vegetale (in blu). Si nota l'area della pista da bob al centro delle immagini del 2025, in località Ronco, e le piste da sci del Col Drusciè sulla sinistra.*
 
-### San Vito e Tai di Cadore
-Lo stesso procedimento, con gli stessi codici, è stato poi ripetuto per le altre due località interessate dallo studio.
+### Importazione in R - San Vito e Tai di Cadore
+Lo stesso procedimento, con gli stessi codici, è stato poi ripetuto per le immagini delle altre due località interessate dallo studio.
 
 ![san_vito](https://github.com/user-attachments/assets/1a81cef1-6661-46e4-87ad-27f71c13d47a)
 
-*Nelle immagini si nota l'impatto sulla vegetazione della costruzione della variante alla SS51 ad ovest del centro abitato di San Vito, affiancata al torrente Boite.*
+*Nelle immagini si nota il cantiere per la costruzione della variante della SS51 ad ovest del centro abitato di San Vito di Cadore, parallela al torrente Boite.*
 
 ![tai](https://github.com/user-attachments/assets/597c5426-4f4f-4636-9563-eb4220cf3b77)
 
-*In queste immagini si può notare, a sud dell'abitato di Tai, l'impatto della costruzione degli imbocchi della galleria dell'altra variante della SS51.*
+*In queste immagini si può notare, a sud dell'abitato di Tai di Cadore, l'impatto della costruzione della galleria dell'altra variante della SS51 e delle opere annesse.*
 
 ## Analisi delle immagini
-### DVI e NDVI - Cortina
+### Indici spettrali - Cortina d'Ampezzo 🛷
 Si è poi proceduto a visualizzare le variazioni di **DVI** (Difference Vegetation Index) e **NDVI** (Normalized Difference Vegetation Index), che calcolano la differenza tra la banda del vicino infrarosso e quella del rosso per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
 
 ```
@@ -159,17 +159,17 @@ dev.off()
 
 ![cortina_dvi_ndvi](https://github.com/user-attachments/assets/390bd820-9474-484c-aa5a-4ff91b63955b)
 
-*Più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica.*
+*Più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica (acqua, roccia nuda, strade, edifici e cantieri).*
 
-### NDVI - San Vito e Tai di Cadore
-Per le altre località è stato usato come indice spettrale **solo l'NDVI** in quanto evidenzia in modo più coerente la copertura vegetale in generale, senza senza enfatizzare eccessivamente le differenze tra vegetazione arborea ed erbacea.
-I codici utilizzati sono stati gli stessi.
+### Indici spettrali - San Vito e Tai di Cadore 🛣️
+Per le immagini delle altre località è stato usato come indice spettrale **solo l'NDVI** in quanto evidenzia in modo più coerente la copertura vegetale in generale, senza senza enfatizzare eccessivamente le differenze tra vegetazione arborea ed erbacea (come tende a fare il DVI).
+I codici utilizzati sono stati gli stessi di quelli utilizzati per le immagini di Cortina d'Ampezzo.
 
 ![sanvito_tai_ndvi](https://github.com/user-attachments/assets/9120e58b-a2a6-43e5-a5a8-a33d7c1c3261)
 
 *Come palette di colore è stata lasciata quella standard di viridis per evidenziare al meglio le differenze tra aree senza piante (blu) e fotosintetiche (giallo). Si notano bene gli impatti dei cantieri stradali.*
 
-### Analisi multitemporale
+### Analisi multitemporale - Cortina d'Ampezzo 🛷
 Per visualizzare meglio l'impatto dei lavori per la pista da bob è stata calcolata la **differenza tra le immagini del 2019 e del 2025** per quanto riguarda la **banda del verde** e i valori di **NDVI**.
 ```
 cortina_diff = cortina_19[[2]] - cortina_25[[2]]        # calcolo differenza nella banda del verde tra 2019 e 2025
@@ -183,9 +183,11 @@ dev.off()
 
 ![cortina_diff](https://github.com/user-attachments/assets/fa361dbb-e722-44a7-b41d-8878e7b95e31)
 
-*In entrambe le immagini si nota bene la "macchia" di colore diverso al centro dell'immagine, in corrispondenza della pista da bob, dove i lavori hanno comportato l'abbattimento di numerosi alberi, principalmente larici e abeti.*
+*In entrambe le immagini è ben visibile una "macchia" di colore diverso al centro dell'immagine in corrispondenza della pista da bob, dove i lavori hanno infatti comportato l'abbattimento di numerosi alberi, principalmente larici e abeti.*
 
+### Analisi multitemporale - San Vito e Tai di Cadore 🛣️
 Lo stesso procedimento è stato ripetuto per le due località del Cadore, ma solo relativamente ai valori di **NDVI** in quanto vengono visualizzati in maniera più evidente.
+
 ```
 san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
 tai_diff_ndvi = ndvi2019tai - ndvi2025tai
@@ -198,6 +200,5 @@ dev.off()
 
 ![cadore_diff](https://github.com/user-attachments/assets/2321ee68-e70e-44ce-bb4b-8567992d05b4)
 
-*A San Vito si nota bene il tracciato della nuova variante parallela al Boite e di altre opere connesse, mentre a Tai si notano i due cantieri per gli imbocchi della galleria.*
-
+*A San Vito è molto evidente il tracciato della nuova variante stradale affiancata al Boite, mentre a Tai si distinguono i due cantieri degli imbocchi della galleria e dei nuovi svincoli.*
 
