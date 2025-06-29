@@ -99,3 +99,24 @@ im.multiframe(1,2)
 plot(san_vito_diff_ndvi, main = "San Vito 2019-2025:\ndifferenza NDVI")
 plot(tai_diff_ndvi, main = "Tai 2019-2025:\ndifferenza NDVI")
 dev.off()
+
+
+        # crop immagini Cortina per maggior accuratezza (solo pista da bob) usando la funzione draw di terra
+plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 (RGB)")    # plotto l'immagine da croppare
+crop_cortina = draw(x="extent", col="red", lwd=2)            # disegno un rettangolo sopra l'area di interesse
+cortina_25_crop = crop(cortina_25, crop_cortina)             # applico il crop alle due immagini originali e a quelle di ndvi
+cortina_19_crop = crop(cortina_19, crop_cortina)
+png("pistabob.png")
+im.multiframe(1,2)
+plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2019")
+plotRGB(cortina_25_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2025")
+dev.off()
+
+        # ridgeline delle immagini ndvi croppate pista da bob
+ndvi_19crop = crop(ndvi2019cortina, crop_cortina)        # croppo le immagini ndvi
+ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
+cortina_rl = c(ndvi_19crop, ndvi_25crop)                 # costruisco vettore con elementi le due immagini croppate ndvi
+names(cortina_rl) =c("NDVI 2019", "NDVI 2025")           
+png("ridgeline_bob.png")
+im.ridgeline(cortina_rl, scale=1, palette="viridis")
+dev.off()
