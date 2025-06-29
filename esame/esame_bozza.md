@@ -185,8 +185,45 @@ dev.off()
 
 *In entrambe le immagini è ben visibile una "macchia" di colore diverso al centro dell'immagine in corrispondenza della pista da bob, dove i lavori hanno infatti comportato l'abbattimento di numerosi alberi, principalmente larici e abeti.*
 
+Tramite la **funzione draw** del pacchetto terra si sono poi croppate le immagini sul **sito della pista da bob** per valutare più accuratamente le variazioni temporali nel sito specifico dove l'impatto è maggiore.
+
+```
+plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 (RGB)")    # plotto l'immagine da croppare
+crop_cortina = draw(x="extent", col="red", lwd=2)            # disegno un rettangolo sopra l'area di interesse
+cortina_25_crop = crop(cortina_25, crop_cortina)             # applico il crop alle due immagini originali e a quelle di ndvi
+cortina_19_crop = crop(cortina_19, crop_cortina)
+png("pistabob.png")
+im.multiframe(1,2)
+plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2019")
+plotRGB(cortina_25_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2025")
+dev.off()
+```
+
+![pistabob](https://github.com/user-attachments/assets/f71236c1-1e3a-44c8-8498-2bda5f64640c)
+
+*Le immagini originali RGB di Cortina ingrandite sulla sola zona della pista da bob.*
+
+Si è poi fatta un'**analisi ridgeline** dei valori di **NDVI nel 2019 e nel 2025** per contare il numero dei pixel di ogni immagine per ciascun valore di NDVI.
+
+```
+ndvi_19crop = crop(ndvi2019cortina, crop_cortina)
+ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
+cortina_rl = c(ndvi_19crop, ndvi_25crop)
+names(cortina_rl) =c("NDVI 2019", "NDVI 2025")
+png("ridgeline_bob.png")
+im.ridgeline(cortina_rl, scale=1, palette="viridis")
+dev.off()
+```
+
+![ridgeline_bob](https://github.com/user-attachments/assets/df6d65dd-6d26-4345-b9f3-8d44858b2a78)
+
+*Il grafico ridgeline che mostra la distribuzione dei valori di NDVI all'interno delle immagini della pista da bob nel 2019 e nel 2025*
+
+Dal grafico si nota un notevole **aumento dei valori di NDVI basso** (ovvero di aree senza vegetazione) nel 2025 rispetto al 2019. Questo corrisponde ovviamente all'impatto dei cantieri per l'ammodernamento della pista. A ciò si aggiunge una leggera traslazione nei valori massimi di NDVI, probabilmente dovuta a differenze stagionali tra 2019 e 2025 che hanno influenzato e fatto aumentare l'attività fotosintetica della vegetazione rimasta.
+
+
 ### Analisi multitemporale - San Vito e Tai di Cadore 🛣️
-Lo stesso procedimento è stato ripetuto per le due località del Cadore, ma solo relativamente ai valori di **NDVI** in quanto vengono visualizzati in maniera più evidente.
+Lo stesso procedimento è stato ripetuto per le due località del Cadore, ma solo relativamente alla visualizzazione spaziale dei valori di **NDVI** in quanto evidenziano meglio la vegetazione generale, senza distinguere eccessivamente tra aree boschive e prative.
 
 ```
 san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
