@@ -140,7 +140,7 @@ Lo stesso procedimento, con gli stessi codici, è stato poi ripetuto per le altr
 *In queste immagini si può notare, a sud dell'abitato di Tai, l'impatto della costruzione degli imbocchi della galleria dell'altra variante della SS51.*
 
 ## Analisi delle immagini
-### Visualizzazione DVI e NDVI - Cortina
+### DVI e NDVI - Cortina
 Si è poi proceduto a visualizzare le variazioni di **DVI** (Difference Vegetation Index) e **NDVI** (Normalized Difference Vegetation Index), che calcolano la differenza tra la banda del vicino infrarosso e quella del rosso per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
 
 ```
@@ -161,9 +161,43 @@ dev.off()
 
 *Più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica.*
 
-### San Vito e Tai di Cadore
+### NDVI - San Vito e Tai di Cadore
 Per le altre località è stato usato come indice spettrale **solo l'NDVI** in quanto evidenzia in modo più coerente la copertura vegetale in generale, senza senza enfatizzare eccessivamente le differenze tra vegetazione arborea ed erbacea.
+I codici utilizzati sono stati gli stessi.
 
 ![sanvito_tai_ndvi](https://github.com/user-attachments/assets/9120e58b-a2a6-43e5-a5a8-a33d7c1c3261)
 
 *Come palette di colore è stata lasciata quella standard di viridis per evidenziare al meglio le differenze tra aree senza piante (blu) e fotosintetiche (giallo). Si notano bene gli impatti dei cantieri stradali.*
+
+### Analisi multitemporale
+Per visualizzare meglio l'impatto dei lavori per la pista da bob è stata calcolata la **differenza tra le immagini del 2019 e del 2025** per quanto riguarda la **banda del verde** e i valori di **NDVI**.
+```
+cortina_diff = cortina_19[[2]] - cortina_25[[2]]        # calcolo differenza nella banda del verde tra 2019 e 2025
+cortina_diff_ndvi = ndvi2019cortina - ndvi2025cortina   # calcolo differenza NDVI
+png("cortina_diff.png")
+im.multiframe(1,2)                                      # plotto le due immagini insieme
+plot(cortina_diff, main = "Cortina 2019-2025:\ndifferenza banda del verde")
+plot(cortina_diff_ndvi, main = "Cortina 2019-2025:\ndifferenza NDVI")
+dev.off()
+```
+
+![cortina_diff](https://github.com/user-attachments/assets/fa361dbb-e722-44a7-b41d-8878e7b95e31)
+
+*In entrambe le immagini si nota bene la "macchia" di colore diverso al centro dell'immagine, in corrispondenza della pista da bob, dove i lavori hanno comportato l'abbattimento di numerosi alberi, principalmente larici e abeti.*
+
+Lo stesso procedimento è stato ripetuto per le due località del Cadore, ma solo relativamente ai valori di **NDVI** in quanto vengono visualizzati in maniera più evidente.
+```
+san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
+tai_diff_ndvi = ndvi2019tai - ndvi2025tai
+png("cadore_diff.png")
+im.multiframe(1,2)
+plot(san_vito_diff_ndvi, main = "San Vito 2019-2025:\ndifferenza NDVI")
+plot(tai_diff_ndvi, main = "Tai 2019-2025:\ndifferenza NDVI")
+dev.off()
+```
+
+![cadore_diff](https://github.com/user-attachments/assets/2321ee68-e70e-44ce-bb4b-8567992d05b4)
+
+*A San Vito si nota bene il tracciato della nuova variante parallela al Boite e di altre opere connesse, mentre a Tai si notano i due cantieri per gli imbocchi della galleria.*
+
+
