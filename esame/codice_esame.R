@@ -112,6 +112,7 @@ plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da 
 plotRGB(cortina_25_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2025")
 dev.off()
 
+
         # ridgeline delle immagini ndvi croppate pista da bob
 ndvi_19crop = crop(ndvi2019cortina, crop_cortina)        # croppo le immagini ndvi
 ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
@@ -119,4 +120,32 @@ cortina_rl = c(ndvi_19crop, ndvi_25crop)                 # costruisco vettore co
 names(cortina_rl) =c("NDVI 2019", "NDVI 2025")           
 png("ridgeline_bob.png")
 im.ridgeline(cortina_rl, scale=1, palette="viridis")
+dev.off()
+
+
+        # classificazione immagini
+cortina_19_class = im.classify(ndvi_19crop, num_clusters=2)            # divido i pixel di ogni immagine in due cluster a seconda dei valori
+cortina_25_class = im.classify(ndvi_25crop, num_clusters=2)
+perc_19_c = freq(cortina_19_class) * 100 / ncell(cortina_19_class)     # calcolo la percentuale di ciascun cluster
+perc_19_c                                                              # visualizzo l'elemento appena creato
+          layer     value    count
+    1 0.0192604 0.0192604 28.21649
+    2 0.0192604 0.0385208 71.78351
+perc_25_c = freq(cortina_25_class) * 100 / ncell(cortina_25_class)
+perc_25_c
+          layer     value count
+    1 0.0192604 0.0192604  37.5
+    2 0.0192604 0.0385208  62.5
+NDVI = c("elevato", "basso")                                            # creo vettore con i nomi dei due cluster (valori elevati e bassi di NDVI)
+anno_2019 = c(71.8, 28.2)                                               # creo vettore con le percentuali per ciascun anno
+anno_2025 = c(62.5, 37.5)
+tabout = data.frame(NDVI, anno_2019, anno_2025)                        # creo dataframe con i valori di ndvi per anno e lo visualizzo
+tabout
+         NDVI anno_2019 anno_2025
+    1 elevato      71.8      62.5
+    2   basso      28.2      37.5
+ggplotcortina19 = ggplot(tabout, aes(x=NDVI, y=anno_2019, fill=NDVI, color=NDVI))+geom_bar(stat="identity")+ylim(c(0,100))    # creo ggplot per ogni anno
+ggplotcortina25 = ggplot(tabout, aes(x=NDVI, y=anno_2025, fill=NDVI, color=NDVI))+geom_bar(stat="identity")+ylim(c(0,100))
+png("ggplot_ndvi.png")
+ggplotcortina19 + ggplotcortina25 + plot_annotation(title = "Valori NDVI (% superficie) nel sito della pista da bob di Cortina")    # creo grafico con entrambi i ggplot creati
 dev.off()
