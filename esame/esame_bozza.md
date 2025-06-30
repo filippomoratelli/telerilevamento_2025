@@ -181,20 +181,21 @@ dev.off()
 *Più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica (acqua, roccia nuda, strade, edifici e cantieri).*
 
 ### Analisi multitemporale
-Per visualizzare meglio l'impatto dei lavori per la pista da bob è stata calcolata la **differenza tra le immagini del 2019 e del 2025** per quanto riguarda la **banda del verde** e i valori di **NDVI**.
+Per visualizzare meglio l'impatto dei lavori per la pista da bob è stata calcolata la **differenza tra le immagini del 2019 e del 2025** per quanto riguarda la **banda del rosso** e i valori di **NDVI**.
 
 ``` R
-cortina_diff = cortina_19[[2]] - cortina_25[[2]]        # calcolo differenza nella banda del verde tra 2019 e 2025
+cortina_diff = cortina_19[[1]] - cortina_25[[1]]        # calcolo differenza nella banda del rosso tra 2019 e 2025
 cortina_diff_ndvi = ndvi2019cortina - ndvi2025cortina   # calcolo differenza NDVI
 
 png("cortina_diff.png")
 im.multiframe(1,2)                                      # plotto le due immagini insieme
-plot(cortina_diff, main = "Cortina 2019-2025:\ndifferenza banda del verde")
+plot(cortina_diff, main = "Cortina 2019-2025:\ndifferenza banda del rosso")
 plot(cortina_diff_ndvi, main = "Cortina 2019-2025:\ndifferenza NDVI")
 dev.off()
 ```
 
-![cortina_diff](https://github.com/user-attachments/assets/fa361dbb-e722-44a7-b41d-8878e7b95e31)
+![cortina_diff](https://github.com/user-attachments/assets/c7bd21cf-90e9-45ee-ba0b-115d55d6e6dd)
+
 
 *In entrambe le immagini è ben visibile una "macchia" di colore diverso al centro dell'immagine in corrispondenza della pista da bob, dove i lavori hanno infatti comportato l'abbattimento di numerosi alberi, principalmente larici e abeti.*
 
@@ -205,6 +206,8 @@ plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 
 crop_cortina = draw(x="extent", col="red", lwd=2)            # disegno un rettangolo sopra l'area di interesse
 cortina_25_crop = crop(cortina_25, crop_cortina)             # applico il crop alle due immagini originali e a quelle di ndvi
 cortina_19_crop = crop(cortina_19, crop_cortina)
+ndvi_19crop = crop(ndvi2019cortina, crop_cortina)
+ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
 png("pistabob.png")
 im.multiframe(2,2)
 plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2019")
@@ -218,11 +221,9 @@ dev.off()
 
 *Le immagini originali RGB e NDVI di Cortina ingrandite sulla sola zona della pista da bob.*
 
-Si è poi fatta un'**analisi ridgeline** dei valori di **NDVI nel 2019 e nel 2025** per contare il numero dei pixel di ogni immagine per ciascun valore di NDVI.
+Per visualizzare graficamente la frequenza dei pixel di ogni immagine per ciascun valore di NDVI si è poi fatta un'**analisi ridgeline** dei valori di **NDVI nel 2019 e nel 2025**. Questa permette appunto di creare due curve di distribuzione con cui diventa possibile apprezzare eventuali variazioni nel tempo nella frequenza di NDVI.
 
 ``` R
-ndvi_19crop = crop(ndvi2019cortina, crop_cortina)
-ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
 cortina_rl = c(ndvi_19crop, ndvi_25crop)
 names(cortina_rl) =c("NDVI 2019", "NDVI 2025")
 
@@ -244,20 +245,21 @@ Per visualizzare la **variazione percentuale di NDVI nel sito** della pista da b
 cortina_19_class = im.classify(ndvi_19crop, num_clusters=2)            # divido i pixel di ogni immagine in due classi a seconda dei valori
 cortina_25_class = im.classify(ndvi_25crop, num_clusters=2)
 
-png("classi_ndvi.png")                                                 # plotto le immagini con i pixel suddivisi nei due cluster per vedere come sono stati classificati
-im.multiframe(1,2)
+png("classi_ndvi.png")                                                 # plotto le immagini con i pixel suddivisi nei due cluster per vedere come sono stati classificati e la differenza tra esse
+im.multiframe(2,2)
 plot(cortina_19_class, main = "Pixel NDVI pista da bob, 2019")
 plot(cortina_25_class, main = "Pixel NDVI pista da bob, 2025")
+plot(cortina_19_class - cortina_25_class, main = "Differenza NDVI pista da bob\n(2019-2025)")
 dev.off()
 ```
 
-![classi_ndvi](https://github.com/user-attachments/assets/9b4051ba-fb32-4712-b133-7c69459abc7c)
+![classi_ndvi](https://github.com/user-attachments/assets/5bcf136c-530e-4b3f-83c3-b9fb9ff57fd8)
 
-*I pixel sono stati suddivisi in due classi (1 e 2), e paragonando queste immagini a quelle NDVI dell'area si vede che la classe 1 corrisponde a valori bassi di NDVI e quella 2 a valori elevati.*
+*I pixel sono stati suddivisi in due classi (1 e 2), e paragonando queste immagini a quelle NDVI dell'area si vede che la classe 1 corrisponde a valori bassi di NDVI e quella 2 a valori elevati. Facendone la differenza risulta evidente dove c'è stata una perdita (in giallo, ovvero la pista da bob) o un mantenimento/aumento (in verde e viola) dei valori di NDVI.*
 
 ``` R
-perc_19_c = freq(cortina_19_class) * 100 / ncell(cortina_19_class)     # calcolo la percentuale di ciascuna classe
-perc_19_c                                                              # visualizzo l'elemento appena creato
+perc_19_c = freq(cortina_19_class) * 100 / ncell(cortina_19_class)     # calcolo la frequenza percentuale di ciascun cluster
+perc_19_c                                                              # visualizzo la frequenza percentuale
           layer     value    count
     1 0.0192604 0.0192604 28.21649
     2 0.0192604 0.0385208 71.78351
@@ -267,10 +269,10 @@ perc_25_c
     1 0.0192604 0.0192604  37.5
     2 0.0192604 0.0385208  62.5
 
-NDVI = c("elevato", "basso")                                            # creo vettore con i nomi dei due cluster (valori elevati e bassi di NDVI)
+NDVI = c("elevato", "basso")                                            # creo vettore con i nomi dei due cluster (valore elevato e basso di NDVI)
 anno_2019 = c(71.8, 28.2)                                               # creo vettore con le percentuali per ciascun anno
 anno_2025 = c(62.5, 37.5)
-tabout = data.frame(NDVI, anno_2019, anno_2025)                        # creo dataframe con i valori di ndvi per anno e lo visualizzo
+tabout = data.frame(NDVI, anno_2019, anno_2025)                         # creo dataframe con i valori di ndvi per anno e lo visualizzo
 tabout
          NDVI anno_2019 anno_2025
     1 elevato      71.8      62.5
