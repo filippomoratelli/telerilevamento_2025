@@ -1,9 +1,9 @@
 > ### Filippo Moratelli
-> #### matricola n. 1007077
+>> #### matricola n. 1007077
 
 # L'impatto ambientale dei XXV Giochi Olimpici Invernali sulla Valle del Boite (BL) 🏔️
 
-In questo lavoro è stato analizzato tramite telerilevamento satellitare l'impatto sulla copertura forestale di alcune opere relative ai **XXV Giochi Olimpici Invernali**, previsti a Milano, Cortina d'Ampezzo e altre località delle Alpi Italiane per il febbraio 2026.
+In questo lavoro è stato analizzato tramite telerilevamento satellitare l'impatto sulla copertura vegetale di alcune opere relative ai **XXV Giochi Olimpici Invernali**, previsti a Milano, Cortina d'Ampezzo e altre località delle Alpi Italiane per il febbraio 2026.
 
 Nel dettaglio, è stata confrontata la situazione **tra il 2019 e il 2025** in alcune località situate in **Valle del Boite** (provincia di Belluno) interessate da opere direttamente o indirettamente connesse alle Olimpiadi, ovvero:
 + **Cortina d'Ampezzo**, sede dei Giochi, presso cui sono recentemente terminati i lavori per l'ammodernamento della **Pista Olimpica *"Eugenio Monti"*** dove si terranno le discipline di bob, slittino e skeleton;
@@ -18,8 +18,7 @@ Nel dettaglio, è stata confrontata la situazione **tra il 2019 e il 2025** in a
 ### Download delle immagini
 Le immagini satellitari utilizzate provengono dalla missione **ESA Sentinel-2** e sono state ottenute tramite la piattaforma di **Google Earth Engine**, permettendo quindi di avere accesso anche alle immagini più recenti e aggiornate possibili (giugno 2025).
 
-Come anno base di riferimento è stato scelto il **2019**, anno di assegnazione dei Giochi Olimpici a Milano e Cortina e quindi precedente all'inizio di qualsiasi lavoro effettivamente collegato alle Olimpiadi; il 2019 è inoltre successivo alla tempesta Vaia, permettendo quindi di escludere dall'analisi eventuali variazioni nella copertura arborea dovute ai danni da vento.
-
+Come anno base di riferimento è stato scelto il **2019**, anno di assegnazione dei Giochi Olimpici a Milano e Cortina e quindi precedente all'inizio di qualsiasi lavoro effettivamente collegato alle Olimpiadi; il 2019 è inoltre successivo alla tempesta Vaia, permettendo quindi di escludere dall'analisi eventuali variazioni nella copertura arborea dovute ai danni da vento.  
 Come stagione è stata scelta per entrambi gli anni la tarda primavera (**dal 1° maggio al 30 giugno**), periodo in cui le piante sono appena rientrate in piena attività fotosintetica anche alle altitudini dello studio (ovvero tra gli 800 e i 1500 m slm).
 
 Per ogni area di studio sono state scaricate **2 immagini diverse** (una per il 2019 e una per il 2025, con bande RGB e NIR). Le immagini sono la **mediana composita** tra le varie immagini disponibili per ciascun periodo indicato tenendo conto anche dei **filtri sulla copertura nuvolosa** (solo immagini con meno del 20% di nuvole).
@@ -80,9 +79,9 @@ Export.image.toDrive({
   maxPixels: 1e13
 });
 ```
-Questo codice è stato poi riutilizzato con le*date relative al 2025 (2025-05-01, 2025-06-30) per la creazione e il download della seconda immagine composita aggiornata.
+Questo codice è stato poi riutilizzato con le **date relative al 2025** (2025-05-01, 2025-06-30) per la creazione e il download della seconda immagine composita aggiornata.
 
-Il processo è stato poi ripetuto per le altre due località dello studio.
+Il processo è stato poi **ripetuto per le altre due località** dello studio.
 
 ``` JavaScript
 // rettangolo per l'area di San Vito di Cadore
@@ -142,7 +141,8 @@ dev.off()
 
 ![cortina](https://github.com/user-attachments/assets/fa1c32f3-dbbf-4c49-9cb0-1c9b67e8e21f)
 
-*Le quattro immagini di confronto per l'area di Cortina d'Ampezzo, in colori reali (RGB) e usando la banda del vicino infrarosso per evidenziare il suolo nudo (in giallo) rispetto alla copertura vegetale (in blu). Si nota l'area della pista da bob al centro delle immagini del 2025, in località Ronco, e le piste da sci del Col Drusciè sulla sinistra.*
+*Le quattro immagini di confronto per l'area di Cortina d'Ampezzo, in colori reali (RGB) e usando la banda del vicino infrarosso per evidenziare il suolo nudo (in giallo) rispetto alla copertura vegetale (in blu).  
+Si nota l'area della pista da bob al centro delle immagini del 2025, in località Ronco, e le piste da sci del Col Drusciè sulla sinistra.*
 
 ### Importazione e visualizzazione delle immagini in R - San Vito e Tai di Cadore
 Lo stesso procedimento, con gli stessi codici, è stato poi ripetuto per le immagini delle altre due località interessate dallo studio.
@@ -236,7 +236,8 @@ dev.off()
 
 *Il grafico ridgeline che mostra la distribuzione dei valori di NDVI all'interno delle immagini della pista da bob nel 2019 e nel 2025*
 
-Dal grafico si nota un notevole **aumento dei valori di NDVI basso** (ovvero di aree senza vegetazione) nel 2025 rispetto al 2019. Questo corrisponde ovviamente all'impatto dei cantieri per l'ammodernamento della pista. A ciò si aggiunge una leggera traslazione nei valori massimi di NDVI, probabilmente dovuta a differenze stagionali tra 2019 e 2025 che hanno influenzato e fatto aumentare l'attività fotosintetica della vegetazione rimasta.
+Dal grafico si nota un notevole **aumento dei valori di NDVI basso** (ovvero di aree senza vegetazione) nel 2025 rispetto al 2019.  
+Questo corrisponde ovviamente all'impatto dei cantieri per l'ammodernamento della pista. A ciò si aggiunge una leggera traslazione nei valori massimi di NDVI, probabilmente dovuta a differenze stagionali tra 2019 e 2025 che hanno influenzato e fatto aumentare l'attività fotosintetica della vegetazione rimasta.
 
 ### Composizione delle immagini (classificazione)
 Per visualizzare la **variazione percentuale di NDVI nel sito** della pista da bob di Cortina tra 2019 e 2025 è stato creato un **grafico a barre** tramite il pacchetto **ggplot2**. Questo permette di suddividere tutti i pixel di ciascuna immagine in **due classi** a seconda dei loro valori, in questo caso valori elevati di NDVI (vegetazione) e bassi (principalmente edifici, strade o cantieri), per poi confrontarli graficamente.
@@ -255,7 +256,8 @@ dev.off()
 
 ![classi_ndvi](https://github.com/user-attachments/assets/5bcf136c-530e-4b3f-83c3-b9fb9ff57fd8)
 
-*I pixel sono stati suddivisi in due classi (1 e 2), e paragonando queste immagini a quelle NDVI dell'area si vede che la classe 1 corrisponde a valori bassi di NDVI e quella 2 a valori elevati. Facendone la differenza risulta evidente dove c'è stata una perdita (in giallo, ovvero la pista da bob) o un mantenimento/aumento (in verde e viola) dei valori di NDVI.*
+*I pixel sono stati suddivisi in due classi (1 e 2), e paragonando queste immagini a quelle NDVI dell'area si vede che la classe 1 corrisponde a valori bassi di NDVI e quella 2 a valori elevati.  
+Facendone la differenza risulta evidente dove c'è stata una perdita (in giallo, ovvero la pista da bob) o un mantenimento/aumento (in verde e viola) dei valori di NDVI.*
 
 ``` R
 perc_19_c = freq(cortina_19_class) * 100 / ncell(cortina_19_class)     # calcolo la frequenza percentuale di ciascun cluster
@@ -298,7 +300,7 @@ dev.off()
 
 
 ## Analisi delle immagini - San Vito e Tai di Cadore 🛣️
-Nelle altre due località interessate dallo studio, il lavoro è stato più ridotto e meno dettagliato rispetto a quello svolto per analizzare il caso di Cortina, concentrandosi esclusivamente sulle immagini satellitari e la differenza visibile tra i due anni tramite analisi multitemporale.
+Nelle altre due località interessate dallo studio, il lavoro è stato più ridotto e meno dettagliato rispetto a quello svolto per analizzare il caso di Cortina, concentrandosi esclusivamente sulle immagini satellitari e la differenza visibile tra i due anni tramite analisi multitemporale senza la creazione di grafici.
 
 ### Indici spettrali
 Per le immagini di San Vito e Tai è stato usato come indice spettrale **solo l'NDVI** in quanto evidenzia in modo più coerente la copertura vegetale in generale, senza enfatizzare eccessivamente le differenze tra vegetazione arborea ed erbacea (come tende invece a fare il DVI).
@@ -310,7 +312,7 @@ Per le immagini di San Vito e Tai è stato usato come indice spettrale **solo l'
 *Come palette di colore è stata lasciata quella standard di viridis per evidenziare al meglio le differenze tra aree senza piante (blu) e fotosintetiche (giallo). In entrambe le immagini del 2025 si nota un leggero aumento rispetto al 2019 della superficie in blu nelle aree interessate dai cantieri.*
 
 ### Analisi multitemporale
-Anche per le due località del Cadore è stata calcolata la differenza tra i valori di NDVI del 2019 e quelli del 2025, per creare un'immagine che rappresentasse le variazioni temporali.
+Anche per le due località del Cadore è stata calcolata la **differenza tra i valori di NDVI** del 2019 e quelli del 2025, per creare un'immagine che rappresentasse le variazioni temporali.
 
 ``` R
 san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
@@ -326,3 +328,18 @@ dev.off()
 ![cadore_diff](https://github.com/user-attachments/assets/2321ee68-e70e-44ce-bb4b-8567992d05b4)
 
 *A San Vito è molto evidente il tracciato della nuova variante stradale affiancata al Boite, mentre a Tai si distinguono i due cantieri degli imbocchi della galleria e dei nuovi svincoli.*
+
+## Risultati e conclusioni ⛷️🌲
+L'analisi multitemporale delle immagini satellitari delle tre località della Valle del Boite interessate da opere relative alle Olimpiadi Invernali del 2026 mostra in tutti e tre i casi una **variazione significativa nella copertura vegetale tra 2019 e 2025**, facilmente rilevabile tramite indicatori spettrali come DVI e NDVI.
+
+Lo studio ha approfondito soprattutto l'area del cantiere per il rifacimento della **Pista Olimpica da bob** "Eugenio Monti" in località Ronco a Cortina d'Ampezzo, al centro di un ampio dibattito pubblico e politico sulla sua utilità nel periodo post-olimpico. Nell'area è stato osservato un **notevole abbassamento dei valori di NDVI**, indicativo di una riduzione dell'attività fotosintetica e corrispondente alla rimozione della copertura forestale circostante di abeti e larici. Le immagini classificate mostrano infatti una diminuzione della percentuale di superficie a NDVI elevato dal 71.8% al 62.5%, tendenza confermata anche dal ridgeline plot che evidenzia invece un aumento di pixel con valori di NDVI basso (compatibile con suoli nudi o aree di cantiere).  
+L'**impatto spaziale** risulta però **limitato** esclusivamente all'esigua area strettamente circostante alla pista, prossima al centro abitato di Cortina. Le estese foreste di abeti rossi sui versanti circostanti non presentano infatti variazioni significative di NDVI e sono state quindi escluse da parte delllo studio.
+
+![image](https://github.com/user-attachments/assets/f0491ce6-f951-45ed-8580-19c609f42fd3)
+
+Per quanto riguarda le nuove **varianti stradali alla SS51** a San Vito e Tai di Cadore, queste presentano un impatto più contenuto sulla copertura forestale, andando ad interessare soprattutto **zone a prato**, ma su superfici più estese rispetto alla pista da bob. Anche in questi casi la **diminuzione di NDVI**  tra 2019 e 2025 è molto evidente nelle zone dei cantieri.
+
+![image](https://github.com/user-attachments/assets/426f03a7-8588-4049-981f-070567fde673)
+
+Nel complesso, nonostante l'estensione delle opere analizzate nello studio sia quindi circoscritta, gli **effetti sul paesaggio** ampezzano e sull'ambiente della Valle del Boite (già fortemente frammentato, urbanizzato e colpito dalla tempesta Vaia del 2018) non sono trascurabili, anche per quanto riguarda la **continuità ecologica** ed un potenziale incremento del carico turistico associato al miglioramento della viabilità in un'area già soggetta a fenomeni di over-tourism.  
+Sarebbe pertanto opportuno ripetere lo studio nei prossimi anni al fine di **monitorare un eventuale recupero della vegetazione** nelle aree disturbate e per **valutare gli effetti indiretti delle infrastrutture viarie** su traffico, emissioni, inquinamento acustico e pressione antropica.
