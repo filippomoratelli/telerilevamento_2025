@@ -14,7 +14,7 @@ Nel dettaglio, è stata confrontata la situazione **tra il 2019 e il 2025** in a
 *Le tre aree analizzate dallo studio e la loro collocazione all'interno della Regione Veneto*
 
 
-## Metodi 🛰️
+## Raccolta delle immagini 🛰️
 ### Download delle immagini
 Le immagini satellitari utilizzate provengono dalla missione **ESA Sentinel-2** e sono state ottenute tramite la piattaforma di **Google Earth Engine**, permettendo quindi di avere accesso anche alle immagini più recenti e aggiornate possibili (giugno 2025).
 
@@ -80,7 +80,7 @@ Export.image.toDrive({
   maxPixels: 1e13
 });
 ```
-Questo codice è stato poi riutilizzato con le date relative al 2025 (2025-05-01, 2025-06-30) per la creazione e il download della seconda immagine composita aggiornata.
+Questo codice è stato poi riutilizzato con le*date relative al 2025 (2025-05-01, 2025-06-30) per la creazione e il download della seconda immagine composita aggiornata.
 
 Il processo è stato poi ripetuto per le altre due località dello studio.
 
@@ -102,19 +102,22 @@ var tai =
         [12.376927359899774, 46.432599317650634]]], null, false);
 ```
 
-### Importazione in R - Cortina
-Le immagini sono state poi scaricate da Google Drive, trasferite in una cartella apposita e successivamente ricaricate in **R** tramite il **pacchetto terra**.
-Altri pacchetti utilizzati sono stati:
-+ **imageRy**, per la funzione di plot;
+### Importazione e visualizzazione delle immagini in R - Cortina d'Ampezzo
+Le immagini (in formato .tif) sono state poi scaricate da Google Drive, trasferite in una cartella apposita e successivamente ricaricate in **R** tramite il **pacchetto terra** per l'analisi.
+
+I pacchetti utilizzati durante l'importazione e l'analisi delle immagini in R sono quindi stati:
++ **terra**, per l'importazione delle immagini in formato .tif;
++ **imageRy**, per la visualizzazione (plot) delle immagini con più bande;
 + **viridis**, per le palette di colori;
-+ **ggridges**, per creare plot ridgeline;
-+ **ggplot2**, per creare grafici a barre;
-+ **patchwork**, per unire i grafici creati con ggplot2.
++ **ggridges**, per la creazione di plot ridgeline;
++ **ggplot2**, per la creazione di grafici a barre;
++ **patchwork**, per l'unione dei grafici creati con ggplot2.
   
-È stata poi fatta una prima analisi per confrontare l'area di Cortina d'Ampezzo tra il 2019 e il 2025 con i colori reali (bande RGB) e visualizzando il suolo nudo utilizzando la banda del vicino infrarosso al posto della banda blu.
+È stata poi fatta una prima analisi per confrontare l'area di Cortina d'Ampezzo tra il 2019 e il 2025 con i **colori reali** (bande RGB) e visualizzando il suolo nudo utilizzando la banda del **vicino infrarosso** al posto della banda blu.
 
 ``` R
 setwd("/Users/filippomoratelli/Desktop/UniBo/corsi/telerilevamento/esame") # imposto la work directory
+
 library(terra)                            # carico tutti i pacchetti necessari
 library(imageRy)
 library(viridis)
@@ -141,7 +144,7 @@ dev.off()
 
 *Le quattro immagini di confronto per l'area di Cortina d'Ampezzo, in colori reali (RGB) e usando la banda del vicino infrarosso per evidenziare il suolo nudo (in giallo) rispetto alla copertura vegetale (in blu). Si nota l'area della pista da bob al centro delle immagini del 2025, in località Ronco, e le piste da sci del Col Drusciè sulla sinistra.*
 
-### Importazione in R - San Vito e Tai di Cadore
+### Importazione e visualizzazione delle immagini in R - San Vito e Tai di Cadore
 Lo stesso procedimento, con gli stessi codici, è stato poi ripetuto per le immagini delle altre due località interessate dallo studio.
 
 ![san_vito](https://github.com/user-attachments/assets/1a81cef1-6661-46e4-87ad-27f71c13d47a)
