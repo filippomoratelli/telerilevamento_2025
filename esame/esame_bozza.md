@@ -1,11 +1,13 @@
-### Filippo Moratelli --- matricola n. 
+> ### Filippo Moratelli
+> #### matricola n. 1007077
+
 # L'impatto ambientale dei XXV Giochi Olimpici Invernali sulla Valle del Boite (BL) 🏔️
 
 In questo lavoro è stato analizzato tramite telerilevamento satellitare l'impatto sulla copertura forestale di alcune opere relative ai **XXV Giochi Olimpici Invernali**, previsti a Milano, Cortina d'Ampezzo e altre località delle Alpi Italiane per il febbraio 2026.
 
-Nel dettaglio, è stata confrontata la situazione tra il 2019 e il 2025 in alcune località situate in **Valle del Boite** (provincia di Belluno) interessate da opere direttamente o indirettamente connesse alle Olimpiadi, ovvero:
+Nel dettaglio, è stata confrontata la situazione **tra il 2019 e il 2025** in alcune località situate in **Valle del Boite** (provincia di Belluno) interessate da opere direttamente o indirettamente connesse alle Olimpiadi, ovvero:
 + **Cortina d'Ampezzo**, sede dei Giochi, presso cui sono recentemente terminati i lavori per l'ammodernamento della **Pista Olimpica *"Eugenio Monti"*** dove si terranno le discipline di bob, slittino e skeleton;
-+ **San Vito di Cadore**, dove sono in corso i lavori per la costruzione di una **variante stradale alla Strada statale 51 di Alemagna** che permetta di alleggerire il traffico all'interno del centro cittadino;
++ **San Vito di Cadore**, dove sono in corso i lavori per la costruzione di una **variante stradale** alla Strada statale 51 di Alemagna che permetta di alleggerire il traffico all'interno del centro cittadino;
 + **Tai di Cadore**, dove sempre per la SS51 è in costruzione una **galleria stradale** a sud dell'abitato in modo da evitarne l'attraversamento.
 
 ![esame_telerilev](https://github.com/user-attachments/assets/147f6c3b-46e0-437e-b012-b8cda0b99198)
@@ -14,9 +16,9 @@ Nel dettaglio, è stata confrontata la situazione tra il 2019 e il 2025 in alcun
 
 ## Metodi 🛰️
 ### Download delle immagini
-Le immagini satellitari utilizzate provengono dalla missione ESA **Sentinel-2** e sono state ottenute tramite la piattaforma di **Google Earth Engine**, permettendo quindi di avere accesso anche alle immagini più recenti e aggiornate possibili (giugno 2025).
+Le immagini satellitari utilizzate provengono dalla missione **ESA Sentinel-2** e sono state ottenute tramite la piattaforma di **Google Earth Engine**, permettendo quindi di avere accesso anche alle immagini più recenti e aggiornate possibili (giugno 2025).
 
-Come anno base di partenza è stato scelto il **2019**, anno di assegnazione dei Giochi Olimpici a Milano e Cortina e quindi precedente all'inizio di qualsiasi lavoro effettivamente collegato alle Olimpiadi, e inoltre successivo alla tempesta Vaia, escludendo quindi dall'analisi eventuali variazioni nella copertura arborea dovute ai danni da vento.
+Come anno base di riferimento è stato scelto il **2019**, anno di assegnazione dei Giochi Olimpici a Milano e Cortina e quindi precedente all'inizio di qualsiasi lavoro effettivamente collegato alle Olimpiadi; il 2019 è inoltre successivo alla tempesta Vaia, permettendo quindi di escludere dall'analisi eventuali variazioni nella copertura arborea dovute ai danni da vento.
 
 Come stagione è stata scelta per entrambi gli anni la tarda primavera (**dal 1° maggio al 30 giugno**), periodo in cui le piante sono appena rientrate in piena attività fotosintetica anche alle altitudini dello studio (ovvero tra gli 800 e i 1500 m slm).
 
@@ -77,15 +79,22 @@ Export.image.toDrive({
   crs: 'EPSG:32632',                            // sistema di riferimento per l'Italia
   maxPixels: 1e13
 });
+```
+Questo codice è stato poi riutilizzato con le date relative al 2025 (2025-05-01, 2025-06-30) per la creazione e il download della seconda immagine composita aggiornata.
 
-// ====================== ripetizione processo per lo stesso periodo del 2025 e per le altre due località ========================
-var san_vito = 
+Il processo è stato poi ripetuto per le altre due località dello studio.
+
+``` JavaScript
+// rettangolo per l'area di San Vito di Cadore
+var san_vito =
     ee.Geometry.Polygon(
       [[[12.193006447322698, 46.471473706914416],
         [12.193006447322698, 46.447113727544775],
         [12.223905495174261, 46.447113727544775],
         [12.223905495174261, 46.471473706914416]]], null, false);
-var tai =
+
+// rettangolo per l'area di Tai di Cadore
+var tai = 
     ee.Geometry.Polygon(
       [[[12.339676841100946, 46.432599317650634],
         [12.339676841100946, 46.41271956415987],
@@ -98,15 +107,19 @@ Le immagini sono state poi scaricate da Google Drive, trasferite in una cartella
 Altri pacchetti utilizzati sono stati:
 + **imageRy**, per la funzione di plot;
 + **viridis**, per le palette di colori;
-+ **ggridges**, per creare plot ridgeline.
++ **ggridges**, per creare plot ridgeline;
++ **ggplot2**, per creare grafici a barre;
++ **patchwork**, per unire i grafici creati con ggplot2.
   
 È stata poi fatta una prima analisi per confrontare l'area di Cortina d'Ampezzo tra il 2019 e il 2025 con i colori reali (bande RGB) e visualizzando il suolo nudo utilizzando la banda del vicino infrarosso al posto della banda blu.
 
-```
+``` R
 setwd("/Users/filippomoratelli/Desktop/UniBo/corsi/telerilevamento/esame") # imposto la work directory
-library(terra)                            # carico i pacchetti necessari
+library(terra)                            # carico tutti i pacchetti necessari
 library(imageRy)
 library(viridis)
+library(ggplot2)
+library(patchwork)
 
 cortina_19 = rast("cortina_19.tif")       # importo le immagini
 cortina_25 = rast("cortina_25.tif")
@@ -139,15 +152,18 @@ Lo stesso procedimento, con gli stessi codici, è stato poi ripetuto per le imma
 
 *In queste immagini si può notare, a sud dell'abitato di Tai di Cadore, l'impatto della costruzione della galleria dell'altra variante della SS51 e delle opere annesse.*
 
-## Analisi delle immagini
-### Indici spettrali - Cortina d'Ampezzo 🛷
+
+
+## Analisi delle immagini - Cortina d'Ampezzo 🛷
+### Indici spettrali
 Si è poi proceduto a visualizzare le variazioni di **DVI** (Difference Vegetation Index) e **NDVI** (Normalized Difference Vegetation Index), che calcolano la differenza tra la banda del vicino infrarosso e quella del rosso per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
 
-```
+``` R
 dvi2019cortina = im.dvi(cortina_19, 4, 1)     # calcolo il DVI (immagine, banda NIR, banda R)
 dvi2025cortina = im.dvi(cortina_25, 4, 1)
 ndvi2019cortina = im.ndvi(cortina_19, 4, 1)   # calcolo il NDVI
 ndvi2025cortina = im.ndvi(cortina_25, 4, 1)
+
 png("cortina_dvi_ndvi.png")                   # preparo il file per salvare il plot
 im.multiframe(2,2)                            # creo un multiframe dove plottare le 4 immagini
 plot(dvi2019cortina, main = "DVI Cortina, 2019")
@@ -161,19 +177,13 @@ dev.off()
 
 *Più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica (acqua, roccia nuda, strade, edifici e cantieri).*
 
-### Indici spettrali - San Vito e Tai di Cadore 🛣️
-Per le immagini delle altre località è stato usato come indice spettrale **solo l'NDVI** in quanto evidenzia in modo più coerente la copertura vegetale in generale, senza senza enfatizzare eccessivamente le differenze tra vegetazione arborea ed erbacea (come tende a fare il DVI).
-I codici utilizzati sono stati gli stessi di quelli utilizzati per le immagini di Cortina d'Ampezzo.
-
-![sanvito_tai_ndvi](https://github.com/user-attachments/assets/9120e58b-a2a6-43e5-a5a8-a33d7c1c3261)
-
-*Come palette di colore è stata lasciata quella standard di viridis per evidenziare al meglio le differenze tra aree senza piante (blu) e fotosintetiche (giallo). Si notano bene gli impatti dei cantieri stradali.*
-
-### Analisi multitemporale - Cortina d'Ampezzo 🛷
+### Analisi multitemporale
 Per visualizzare meglio l'impatto dei lavori per la pista da bob è stata calcolata la **differenza tra le immagini del 2019 e del 2025** per quanto riguarda la **banda del verde** e i valori di **NDVI**.
-```
+
+``` R
 cortina_diff = cortina_19[[2]] - cortina_25[[2]]        # calcolo differenza nella banda del verde tra 2019 e 2025
 cortina_diff_ndvi = ndvi2019cortina - ndvi2025cortina   # calcolo differenza NDVI
+
 png("cortina_diff.png")
 im.multiframe(1,2)                                      # plotto le due immagini insieme
 plot(cortina_diff, main = "Cortina 2019-2025:\ndifferenza banda del verde")
@@ -187,29 +197,32 @@ dev.off()
 
 Tramite la **funzione draw** del pacchetto terra si sono poi croppate le immagini sul **sito della pista da bob** per valutare più accuratamente le variazioni temporali nel sito specifico dove l'impatto è maggiore.
 
-```
+``` R
 plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 (RGB)")    # plotto l'immagine da croppare
 crop_cortina = draw(x="extent", col="red", lwd=2)            # disegno un rettangolo sopra l'area di interesse
 cortina_25_crop = crop(cortina_25, crop_cortina)             # applico il crop alle due immagini originali e a quelle di ndvi
 cortina_19_crop = crop(cortina_19, crop_cortina)
 png("pistabob.png")
-im.multiframe(1,2)
+im.multiframe(2,2)
 plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2019")
 plotRGB(cortina_25_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2025")
+plot(ndvi_19crop, main = "NDVI pista da bob, 2019")
+plot(ndvi_25crop, main = "NDVI pista da bob, 2025")
 dev.off()
 ```
 
-![pistabob](https://github.com/user-attachments/assets/f71236c1-1e3a-44c8-8498-2bda5f64640c)
+![pistabob](https://github.com/user-attachments/assets/faefe798-db24-4e71-a457-b7f936acd65b)
 
-*Le immagini originali RGB di Cortina ingrandite sulla sola zona della pista da bob.*
+*Le immagini originali RGB e NDVI di Cortina ingrandite sulla sola zona della pista da bob.*
 
 Si è poi fatta un'**analisi ridgeline** dei valori di **NDVI nel 2019 e nel 2025** per contare il numero dei pixel di ogni immagine per ciascun valore di NDVI.
 
-```
+``` R
 ndvi_19crop = crop(ndvi2019cortina, crop_cortina)
 ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
 cortina_rl = c(ndvi_19crop, ndvi_25crop)
 names(cortina_rl) =c("NDVI 2019", "NDVI 2025")
+
 png("ridgeline_bob.png")
 im.ridgeline(cortina_rl, scale=1, palette="viridis")
 dev.off()
@@ -221,13 +234,83 @@ dev.off()
 
 Dal grafico si nota un notevole **aumento dei valori di NDVI basso** (ovvero di aree senza vegetazione) nel 2025 rispetto al 2019. Questo corrisponde ovviamente all'impatto dei cantieri per l'ammodernamento della pista. A ciò si aggiunge una leggera traslazione nei valori massimi di NDVI, probabilmente dovuta a differenze stagionali tra 2019 e 2025 che hanno influenzato e fatto aumentare l'attività fotosintetica della vegetazione rimasta.
 
+### Composizione delle immagini (classificazione)
+Per visualizzare la **variazione percentuale di NDVI nel sito** della pista da bob di Cortina tra 2019 e 2025 è stato creato un **grafico a barre** tramite il pacchetto **ggplot2**. Questo permette di suddividere tutti i pixel di ciascuna immagine in **due classi** a seconda dei loro valori, in questo caso valori elevati di NDVI (vegetazione) e bassi (principalmente edifici, strade o cantieri), per poi confrontarli graficamente.
 
-### Analisi multitemporale - San Vito e Tai di Cadore 🛣️
-Lo stesso procedimento è stato ripetuto per le due località del Cadore, ma solo relativamente alla visualizzazione spaziale dei valori di **NDVI** in quanto evidenziano meglio la vegetazione generale, senza distinguere eccessivamente tra aree boschive e prative.
+``` R
+cortina_19_class = im.classify(ndvi_19crop, num_clusters=2)            # divido i pixel di ogni immagine in due classi a seconda dei valori
+cortina_25_class = im.classify(ndvi_25crop, num_clusters=2)
 
+png("classi_ndvi.png")                                                 # plotto le immagini con i pixel suddivisi nei due cluster per vedere come sono stati classificati
+im.multiframe(1,2)
+plot(cortina_19_class, main = "Pixel NDVI pista da bob, 2019")
+plot(cortina_25_class, main = "Pixel NDVI pista da bob, 2025")
+dev.off()
 ```
+
+![classi_ndvi](https://github.com/user-attachments/assets/9b4051ba-fb32-4712-b133-7c69459abc7c)
+
+*I pixel sono stati suddivisi in due classi (1 e 2), e paragonando queste immagini a quelle NDVI dell'area si vede che la classe 1 corrisponde a valori bassi di NDVI e quella 2 a valori elevati.*
+
+``` R
+perc_19_c = freq(cortina_19_class) * 100 / ncell(cortina_19_class)     # calcolo la percentuale di ciascuna classe
+perc_19_c                                                              # visualizzo l'elemento appena creato
+          layer     value    count
+    1 0.0192604 0.0192604 28.21649
+    2 0.0192604 0.0385208 71.78351
+perc_25_c = freq(cortina_25_class) * 100 / ncell(cortina_25_class)
+perc_25_c
+          layer     value count
+    1 0.0192604 0.0192604  37.5
+    2 0.0192604 0.0385208  62.5
+
+NDVI = c("elevato", "basso")                                            # creo vettore con i nomi dei due cluster (valori elevati e bassi di NDVI)
+anno_2019 = c(71.8, 28.2)                                               # creo vettore con le percentuali per ciascun anno
+anno_2025 = c(62.5, 37.5)
+tabout = data.frame(NDVI, anno_2019, anno_2025)                        # creo dataframe con i valori di ndvi per anno e lo visualizzo
+tabout
+         NDVI anno_2019 anno_2025
+    1 elevato      71.8      62.5
+    2   basso      28.2      37.5
+
+ggplotcortina19 = ggplot(tabout, aes(x=NDVI, y=anno_2019, fill=NDVI, color=NDVI)) # creo ggplot per ogni anno
++geom_bar(stat="identity")
++ylim(c(0,100))
+
+ggplotcortina25 = ggplot(tabout, aes(x=NDVI, y=anno_2025, fill=NDVI, color=NDVI))
++geom_bar(stat="identity")
++ylim(c(0,100))
+
+png("ggplot_ndvi.png")
+ggplotcortina19 + ggplotcortina25
++ plot_annotation(title = "Valori NDVI (% superficie) nel sito della pista da bob di Cortina")    # creo grafico con entrambi i ggplot creati
+dev.off()
+```
+
+![ggplot_ndvi](https://github.com/user-attachments/assets/3b63b881-6414-412b-96fd-014fce8aeaf4)
+
+*Dal grafico a barre è evidente l'aumento di pixel con valori bassi di NDVI tra 2019 e 2025 (dal 28% al 38% dell'immagine, ovvero un incremento del 32%) e, ovviamente, una conseguente diminuzione delle aree ricoperte di vegetazione.*
+
+
+## Analisi delle immagini - San Vito e Tai di Cadore 🛣️
+Nelle altre due località interessate dallo studio, il lavoro è stato più ridotto e meno dettagliato rispetto a quello svolto per analizzare il caso di Cortina, concentrandosi esclusivamente sulle immagini satellitari e la differenza visibile tra i due anni tramite analisi multitemporale.
+
+### Indici spettrali
+Per le immagini di San Vito e Tai è stato usato come indice spettrale **solo l'NDVI** in quanto evidenzia in modo più coerente la copertura vegetale in generale, senza enfatizzare eccessivamente le differenze tra vegetazione arborea ed erbacea (come tende invece a fare il DVI).
+
+> I codici utilizzati sono stati gli stessi di quelli utilizzati per le immagini di Cortina d'Ampezzo.
+
+![sanvito_tai_ndvi](https://github.com/user-attachments/assets/9120e58b-a2a6-43e5-a5a8-a33d7c1c3261)
+
+*Come palette di colore è stata lasciata quella standard di viridis per evidenziare al meglio le differenze tra aree senza piante (blu) e fotosintetiche (giallo). In entrambe le immagini del 2025 si nota un leggero aumento rispetto al 2019 della superficie in blu nelle aree interessate dai cantieri.*
+
+### Analisi multitemporale
+Anche per le due località del Cadore è stata calcolata la differenza tra i valori di NDVI del 2019 e quelli del 2025, per creare un'immagine che rappresentasse le variazioni temporali.
+
+``` R
 san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
 tai_diff_ndvi = ndvi2019tai - ndvi2025tai
+
 png("cadore_diff.png")
 im.multiframe(1,2)
 plot(san_vito_diff_ndvi, main = "San Vito 2019-2025:\ndifferenza NDVI")
@@ -238,4 +321,3 @@ dev.off()
 ![cadore_diff](https://github.com/user-attachments/assets/2321ee68-e70e-44ce-bb4b-8567992d05b4)
 
 *A San Vito è molto evidente il tracciato della nuova variante stradale affiancata al Boite, mentre a Tai si distinguono i due cantieri degli imbocchi della galleria e dei nuovi svincoli.*
-
