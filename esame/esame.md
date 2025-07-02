@@ -1,7 +1,7 @@
 > #### Filippo Moratelli
 >> ##### matricola n. 1007077
 
-# L'impatto ambientale dei XXV Giochi Olimpici Invernali sulla Valle del Boite (BL)** 🏔️
+# L'impatto ambientale dei XXV Giochi Olimpici Invernali sulla Valle del Boite (BL) 🏔️
 
 In questo lavoro è stato analizzato tramite telerilevamento satellitare l'**impatto sulla copertura vegetale** di alcune opere relative ai **XXV Giochi Olimpici Invernali**, previsti a Milano, Cortina d'Ampezzo e altre località delle Alpi Italiane per il febbraio 2026.
 
