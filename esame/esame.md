@@ -106,7 +106,7 @@ Le immagini (in formato .tif) sono state poi scaricate da Google Drive, trasferi
 
 I pacchetti utilizzati durante l'importazione e l'analisi delle immagini in R sono quindi stati:
 + ***terra***, per l'importazione delle immagini in formato .tif;
-+ ***imageRy***, per la visualizzazione (*plot*) delle immagini con più bande;
++ ***imageRy***, per la visualizzazione (*plot*) delle immagini per effettuare le analisi;
 + ***viridis***, per le palette di colori;
 + ***ggridges***, per la creazione di *plot ridgeline*;
 + ***ggplot2***, per la creazione di grafici a barre;
@@ -208,7 +208,7 @@ cortina_19_crop = crop(cortina_19, crop_cortina)
 ndvi_19crop = crop(ndvi2019cortina, crop_cortina)
 ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
 png("pistabob.png")
-im.multiframe(2,2)
+im.multiframe(2,2)                                           # creo multiframe e plotto le nuove immagini croppate
 plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2019")
 plotRGB(cortina_25_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2025")
 plot(ndvi_19crop, main = "NDVI pista da bob, 2019")
@@ -223,11 +223,11 @@ dev.off()
 Per visualizzare graficamente la frequenza dei pixel di ogni immagine per ciascun valore di NDVI si è poi fatta un'**analisi** ***ridgeline*** dei valori di **NDVI nel 2019 e nel 2025**. Questa permette appunto di creare due **curve di distribuzione** con cui diventa possibile apprezzare eventuali variazioni nel tempo nella frequenza di NDVI.
 
 ``` R
-cortina_rl = c(ndvi_19crop, ndvi_25crop)
-names(cortina_rl) =c("NDVI 2019", "NDVI 2025")
+cortina_rl = c(ndvi_19crop, ndvi_25crop)                # creo vettore che ha come elementi le due immagini croppate ndvi
+names(cortina_rl) =c("NDVI 2019", "NDVI 2025")          # creo vettore con i nomi relativi alle immagini
 
 png("ridgeline_bob.png")
-im.ridgeline(cortina_rl, scale=1, palette="viridis")
+im.ridgeline(cortina_rl, scale=1, palette="viridis")    # applico la funzione im.ridgeline
 dev.off()
 ```
 
