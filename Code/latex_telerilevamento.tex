@@ -1,0 +1,120 @@
+\documentclass{article}
+% per cambiare font size aggiungo prima delle {} in documentclass [12pt]
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref} % crea hyperlink nel pdf alle ref
+\usepackage{natbib} % x bibliografia
+
+\title{Il mio primo documento con LaTeX}
+\author{Filippo Moratelli}
+\date{May 20th 2025}
+% se elimino la funzione \date o metto % \date{} LaTeX compila automaticamente con la data di oggi
+
+\begin{document}
+
+\maketitle
+% prende la parte sopra e la mette come titolo
+
+\tableofcontents
+
+\begin{abstract}
+Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi.Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi.Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi.Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi.Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. Un testo qualsiasi. 
+\end{abstract}
+
+\section{Introduction} \label{sec:intro}
+Let me take you down
+'Cause I'm going to strawberry fields
+Nothing is real
+And nothing to get hung about
+Strawberry fields forever
+
+% funzione \noindent per evitare indentazione
+% anche \\ per aggiungere indent
+% \smallskip aggiunge piccolo spazietto
+% \bigskip aggiunge spazio più ampio
+\smallskip
+Living is easy with eyes closed
+Misunderstanding all you see
+It's getting hard to be someone, but it all works out
+It doesn't matter much to me
+Let me take you down
+'Cause I'm going to strawberry fields
+Nothing is real
+And nothing to get hung about
+Strawberry fields forever
+
+\section{Methods}
+In this paper, we relied on Equation \ref{eq:newton1}:
+
+\begin{equation}
+F = G \times \frac{m_1 \times m_2}{d^2}
+\label{eq:newton1}
+% label serve a creare etichetta a cui ci si possa poi riferire usando \ref (prende numero di quell'elemento)
+\end{equation}
+
+The equation has then been changed to Equation \ref{eq:newton2}:
+
+\begin{equation}
+F = \sqrt{\sum_{i=1}^{N} G \times \frac{\sqrt{m_1 \times \sqrt{m_2}}}{d^{\sqrt[3]{2}}}}
+\label{eq:newton2}
+\end{equation}
+
+All of this according to what we said in section \ref{sec:intro}
+
+\section{Results}
+
+Always, no sometimes, think it's me
+But you know, I know when it's a dream
+I think I know, I mean a yes
+But it's all wrong
+That is, I think I disagree
+Let me take you down
+'Cause I'm going to strawberry fields
+Nothing is real
+And nothing to get hung about
+Strawberry fields forever
+Strawberry fields forever
+Strawberry fields forever
+
+The final output of the analysis is shown in Figure \ref{fig:temporal}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{ggplot.png}
+    % 0.5 = occupa metà riga, 1 = riga intera
+    \caption{Output graph of the analysis showing the temporal trend}
+    \label{fig:temporal}
+\end{figure}
+
+Then, we found a linear trend (Figure \ref{fig:trend}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{trend.png}
+    \caption{Linear trend found in our thesis}
+    \label{fig:trend}
+\end{figure}
+
+\section{Discussion}
+Let me take you down
+'Cause I'm going to strawberry fields
+Nothing is real
+And nothing to get hung about
+Strawberry fields forever
+No one I think is in my tree
+I mean, it must be high or low
+That is, you can't, you know, tune in, but it's alright
+That is, I think it's not too bad
+Let me take you down
+'Cause I'm going to strawberry fields
+Nothing is real
+And nothing to get hung about
+Strawberry fields forever \cite{crameri}
+
+\begin{thebibliography}{999}
+\bibitem[Crameri et al., 2025]{crameri}
+Crameri, F., Shephard, G. E., \& Heron, P. J. (2020). The misuse of colour in science communication. Nature communications, 11(1), 5444.
+% bibitem[come voglio che appaia]{ref}
+%per l'ampersand serve \&
+\end{thebibliography}
+
+\end{document}
