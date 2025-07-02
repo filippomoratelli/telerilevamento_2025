@@ -1,0 +1,73 @@
+\documentclass{beamer}
+\usepackage{graphicx} % Required for inserting images
+
+\title{La mia prima presentazione in LaTeX}
+\author{Filippo Moratelli}
+\date{27 Maggio 2025}
+
+% https://mpetroff.net/files/beamer-theme-matrix/
+\usetheme{Singapore} % per cambiare struttura (prefe Duccio è Frankfurt)
+\usecolortheme{spruce} % per cambiare colore (prefe Duccio è dove)
+
+\begin{document}
+
+\maketitle
+
+\AtBeginSection[]
+{
+\begin{frame}{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+} % aggiunge slide automatica che fa vedere in che sezione siamo
+
+\section{Introduction}
+
+\begin{frame}{My first slide}
+    This is my first slide in LaTeX.
+\end{frame}
+
+\begin{frame}{My second slide}
+    This is my second slide in \textbf{LaTeX} and I can make use of items.
+    \begin{itemize}
+        \item Telerilevamento
+        \item \pause Geologia
+        \item \pause Ecologia
+        \item \pause Geografia % la funz \pause determina ordine di apparizione testo delle slide
+    \end{itemize}
+\end{frame}
+
+\section{Methods}
+\begin{frame}{The formula}
+    In this study we made use of the following equations:
+    \begin{equation}
+        w_{t12}=\int\limits_1^2vdp
+    \end{equation}
+    
+    \bigskip
+    This equation has been gathered from:
+    \href{https://www.recip.org/tutorial-introduction-to-thermodynamics/}{Introduction to Thermodynamics}.
+\end{frame}
+
+
+\section{Results}
+\begin{frame}{Foto singola}
+    \includegraphics[width=\linewidth]{DSC_3108.JPG}
+\end{frame}
+
+\begin{frame}{Foto doppia}
+    \centering
+    \includegraphics[width=.5\linewidth]{DSC_3108.JPG}
+    \includegraphics[width=.3\linewidth]{DSC_3108.JPG}
+\end{frame}
+
+\begin{frame}{4 foto}
+    \centering
+    \includegraphics[width=.4\linewidth]{DSC_3108.JPG}
+    \pause \includegraphics[width=.4\linewidth]{DSC_3108.JPG} \\
+    \pause \includegraphics[width=.4\linewidth]{DSC_3108.JPG}
+    \pause \includegraphics[width=.4\linewidth]{DSC_3108.JPG}
+\end{frame}
+
+\end{document}
+
+% in fondo posso aggiungere commenti
