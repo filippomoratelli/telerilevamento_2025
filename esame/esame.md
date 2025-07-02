@@ -102,15 +102,15 @@ var tai =
 ```
 
 ### Importazione e visualizzazione delle immagini in R - Cortina d'Ampezzo
-Le immagini (in formato .tif) sono state poi scaricate da Google Drive, trasferite in una cartella apposita e successivamente ricaricate in **R** tramite il **pacchetto terra** per l'analisi.
+Le immagini (in formato .tif) sono state poi scaricate da Google Drive, trasferite in una cartella apposita e successivamente ricaricate in **R** tramite il **pacchetto** ***terra*** per l'analisi.
 
 I pacchetti utilizzati durante l'importazione e l'analisi delle immagini in R sono quindi stati:
-+ **terra**, per l'importazione delle immagini in formato .tif;
-+ **imageRy**, per la visualizzazione (plot) delle immagini con più bande;
-+ **viridis**, per le palette di colori;
-+ **ggridges**, per la creazione di plot ridgeline;
-+ **ggplot2**, per la creazione di grafici a barre;
-+ **patchwork**, per l'unione dei grafici creati con ggplot2.
++ ***terra***, per l'importazione delle immagini in formato .tif;
++ ***imageRy***, per la visualizzazione (*plot*) delle immagini con più bande;
++ ***viridis***, per le palette di colori;
++ ***ggridges***, per la creazione di *plot ridgeline*;
++ ***ggplot2***, per la creazione di grafici a barre;
++ ***patchwork***, per l'unione dei grafici creati con *ggplot2*.
   
 È stata poi fatta una prima analisi per confrontare l'area di Cortina d'Ampezzo tra il 2019 e il 2025 con i **colori reali** (bande RGB) e visualizzando il suolo nudo utilizzando la banda del **vicino infrarosso** al posto della banda blu.
 
@@ -159,7 +159,7 @@ Lo stesso procedimento, con gli stessi codici, è stato poi **ripetuto per le im
 
 ## Analisi delle immagini - Cortina d'Ampezzo 🛷
 ### Indici spettrali
-Si è poi proceduto a visualizzare le variazioni di **DVI** (Difference Vegetation Index) e **NDVI** (Normalized Difference Vegetation Index), che calcolano la **differenza tra la banda del vicino infrarosso e quella del rosso** per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
+Si è poi proceduto a visualizzare le variazioni di **DVI** (*Difference Vegetation Index*) e **NDVI** (*Normalized Difference Vegetation Index*), che calcolano la **differenza tra la banda del vicino infrarosso e quella del rosso** per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
 
 ``` R
 dvi2019cortina = im.dvi(cortina_19, 4, 1)     # calcolo il DVI (immagine, banda NIR, banda R)
@@ -198,7 +198,7 @@ dev.off()
 
 >*In entrambe le immagini è ben visibile una "macchia" di colore diverso al centro dell'immagine in corrispondenza della pista da bob, dove i lavori hanno infatti comportato l'abbattimento di numerosi alberi, principalmente larici e abeti.*
 
-Tramite la **funzione draw** del pacchetto terra si sono poi croppate le immagini sul **sito della pista da bob** per valutare più accuratamente le variazioni temporali nel sito specifico dove l'impatto è maggiore.
+Tramite la **funzione** ***draw*** **del pacchetto** ***terra*** si sono poi croppate le immagini sul **sito della pista da bob** per valutare più accuratamente le variazioni temporali nel sito specifico dove l'impatto è maggiore.
 
 ``` R
 plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 (RGB)")    # plotto l'immagine da croppare
@@ -220,7 +220,7 @@ dev.off()
 
 > *Le immagini originali RGB e NDVI di Cortina ingrandite sulla sola zona della pista da bob.*
 
-Per visualizzare graficamente la frequenza dei pixel di ogni immagine per ciascun valore di NDVI si è poi fatta un'**analisi ridgeline** dei valori di **NDVI nel 2019 e nel 2025**. Questa permette appunto di creare due **curve di distribuzione** con cui diventa possibile apprezzare eventuali variazioni nel tempo nella frequenza di NDVI.
+Per visualizzare graficamente la frequenza dei pixel di ogni immagine per ciascun valore di NDVI si è poi fatta un'**analisi** ***ridgeline*** dei valori di **NDVI nel 2019 e nel 2025**. Questa permette appunto di creare due **curve di distribuzione** con cui diventa possibile apprezzare eventuali variazioni nel tempo nella frequenza di NDVI.
 
 ``` R
 cortina_rl = c(ndvi_19crop, ndvi_25crop)
@@ -239,7 +239,7 @@ Dal grafico si nota un notevole **aumento dei valori di NDVI basso** (ovvero di 
 Questo corrisponde ovviamente all'impatto dei cantieri per l'ammodernamento della pista. A ciò si aggiunge una **leggera traslazione nei valori massimi di NDVI**, probabilmente dovuta a **differenze stagionali** tra 2019 e 2025 che hanno influenzato e fatto aumentare l'attività fotosintetica della vegetazione rimasta.
 
 ### Composizione delle immagini (classificazione)
-Per visualizzare la **variazione percentuale di NDVI nel sito** della pista da bob di Cortina tra 2019 e 2025 è stato creato un **grafico a barre** tramite il pacchetto **ggplot2**. Questo permette di suddividere tutti i pixel di ciascuna immagine in **due classi** a seconda dei loro valori, in questo caso valori elevati di NDVI (vegetazione) e bassi (principalmente edifici, strade o cantieri), per poi confrontarli graficamente.
+Per visualizzare la **variazione percentuale di NDVI nel sito** della pista da bob di Cortina tra 2019 e 2025 è stato creato un **grafico a barre** tramite il pacchetto ***ggplot2***. Questo permette di suddividere tutti i pixel di ciascuna immagine in **due classi** a seconda dei loro valori, in questo caso valori elevati di NDVI (vegetazione) e bassi (principalmente edifici, strade o cantieri), per poi confrontarli graficamente.
 
 ``` R
 cortina_19_class = im.classify(ndvi_19crop, num_clusters=2)            # divido i pixel di ogni immagine in due classi a seconda dei valori
