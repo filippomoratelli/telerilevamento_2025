@@ -203,10 +203,12 @@ Tramite la **funzione** ***draw*** **del pacchetto** ***terra*** si sono poi cro
 ``` R
 plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 (RGB)")    # plotto l'immagine da croppare
 crop_cortina = draw(x="extent", col="red", lwd=2)            # disegno un rettangolo sopra l'area di interesse
+
 cortina_25_crop = crop(cortina_25, crop_cortina)             # applico il crop alle due immagini originali e a quelle di ndvi
 cortina_19_crop = crop(cortina_19, crop_cortina)
 ndvi_19crop = crop(ndvi2019cortina, crop_cortina)
 ndvi_25crop = crop(ndvi2025cortina, crop_cortina)
+
 png("pistabob.png")
 im.multiframe(2,2)                                           # creo multiframe e plotto le nuove immagini croppate
 plotRGB(cortina_19_crop, r = 1, g = 2, b = 3, stretch = "lin", main = "Pista da bob, 2019")
