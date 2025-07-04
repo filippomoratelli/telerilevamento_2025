@@ -26,6 +26,7 @@ plotRGB(cortina_25, r = 1, g = 2, b = 3, stretch = "lin", main = "Cortina, 2025 
 plotRGB(cortina_19, r = 1, g = 2, b = 4, stretch = "lin", main = "Cortina, 2019 (NIR)")
 plotRGB(cortina_25, r = 1, g = 2, b = 4, stretch = "lin", main = "Cortina, 2025 (NIR)")
 dev.off()
+                # ogni volta prima di usare la funzione png() e salvare il plot ho usato il codice per plottare l'immagine e vedere il risultato
 
         # altre località - stesso procedimento di importazione e file png
 san_vito_19 = rast("san_vito_19.tif")
