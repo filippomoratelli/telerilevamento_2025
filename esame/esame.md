@@ -159,7 +159,7 @@ Lo stesso procedimento, con gli stessi codici, è stato poi **ripetuto per le im
 
 ## Analisi delle immagini - Cortina d'Ampezzo 🛷
 ### Indici spettrali
-Si è poi proceduto a visualizzare le variazioni di **DVI** (*Difference Vegetation Index*) e **NDVI** (*Normalized Difference Vegetation Index*), che calcolano la **differenza tra la banda del vicino infrarosso e quella del rosso** per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
+Si è poi proceduto a visualizzare, per l'area di Cortina, le variazioni di **DVI** (*Difference Vegetation Index*) e **NDVI** (*Normalized Difference Vegetation Index*), che calcolano la **differenza tra la banda del vicino infrarosso e quella del rosso** per valutare lo stato di salute (o, in questo caso, la presenza) delle piante. L'NDVI viene normalizzato (valori tra -1 e +1) calcolando anche il rapporto tra differenza e somma di NIR e Red.
 
 ``` R
 dvi2019cortina = im.dvi(cortina_19, 4, 1)     # calcolo il DVI (immagine, banda NIR, banda R)
@@ -178,7 +178,8 @@ dev.off()
 
 ![cortina_dvi_ndvi](https://github.com/user-attachments/assets/390bd820-9474-484c-aa5a-4ff91b63955b)
 
-> *Più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica (acqua, roccia nuda, strade, edifici e cantieri).*
+> *Il DVI non distingue bene tra le aree senza attività fotosintetica e le foreste di conifere, molto scure.  
+Per l'NDVI, più il valore tende al giallo più le piante sono fotosinteticamente attive, mentre il blu scuro rappresenta zone con bassa attività fotosintetica (acqua, roccia nuda, strade, edifici e cantieri).*
 
 ### Analisi multitemporale
 Per visualizzare meglio l'impatto dei lavori per la pista da bob è stata calcolata la **differenza tra le immagini del 2019 e del 2025** per quanto riguarda la **banda del rosso** e i valori di **NDVI**.
@@ -309,12 +310,18 @@ Per le immagini di San Vito e Tai è stato usato come indice spettrale **solo l'
 I **codici utilizzati** sono stati gli stessi di quelli relativi al calcolo dell'NDVI per le immagini di Cortina d'Ampezzo.
 
 ``` R
-san_vito_diff_ndvi = ndvi2019sanvito - ndvi2025sanvito
-tai_diff_ndvi = ndvi2019tai - ndvi2025tai
-png("cadore_diff.png")
-im.multiframe(1,2)
-plot(san_vito_diff_ndvi, main = "San Vito 2019-2025:\ndifferenza NDVI")
-plot(tai_diff_ndvi, main = "Tai 2019-2025:\ndifferenza NDVI")
+ndvi2019sanvito = im.ndvi(san_vito_19, 4, 1)
+ndvi2025sanvito = im.ndvi(san_vito_25, 4, 1)
+
+ndvi2019tai = im.ndvi(tai_19, 4, 1)
+ndvi2025tai = im.ndvi(tai_25, 4, 1)
+
+png("sanvito_tai_ndvi.png")
+im.multiframe(2,2)
+plot(ndvi2019sanvito, main = "NDVI San Vito, 2019", col=viridis(100))
+plot(ndvi2025sanvito, main = "NDVI San Vito, 2025", col=viridis(100))
+plot(ndvi2019tai, main = "NDVI Tai, 2019", col=viridis(100))
+plot(ndvi2025tai, main = "NDVI Tai, 2025",col=viridis(100))
 dev.off()
 ```
 
