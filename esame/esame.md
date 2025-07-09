@@ -81,7 +81,7 @@ Export.image.toDrive({
 ```
 Questo codice è stato poi **riutilizzato con le date relative al 2025** (2025-05-01, 2025-06-30) per la creazione e il download della seconda immagine composita aggiornata.
 
-Il processo è stato poi **ripetuto per le altre due località** dello studio dopo aver creato ulteriori due rettangoli sulle zone di interesse.
+Il processo è stato poi **ripetuto per le altre due località** dello studio dopo aver creato ulteriori due rettangoli sulle zone di interesse, sia per il 2019 che per il 2025.
 
 ``` JavaScript
 // rettangolo per l'area di San Vito di Cadore
@@ -105,7 +105,7 @@ var tai =
 Le immagini (in formato .tif) sono state poi scaricate da Google Drive, trasferite in una cartella apposita e successivamente ricaricate in **R** tramite il **pacchetto** ***terra*** per l'analisi.
 
 I pacchetti utilizzati durante l'importazione e l'analisi delle immagini in R sono quindi stati:
-+ ***terra***, per l'importazione delle immagini in formato .tif;
++ ***terra***, per l'importazione delle immagini in formato .tif e altre funzioni successive;
 + ***imageRy***, per la visualizzazione (*plot*) delle immagini per effettuare le analisi;
 + ***viridis***, per le palette di colori;
 + ***ggridges***, per la creazione di *plot ridgeline*;
