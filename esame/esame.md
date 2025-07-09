@@ -106,13 +106,13 @@ Le immagini (in formato .tif) sono state poi scaricate da Google Drive, trasferi
 
 I pacchetti utilizzati durante l'importazione e l'analisi delle immagini in R sono quindi stati:
 + ***terra***, per l'importazione delle immagini in formato .tif e altre funzioni successive;
-+ ***imageRy***, per la visualizzazione (*plot*) delle immagini per effettuare le analisi;
++ ***imageRy***, per la visualizzazione (*plot*) delle immagini per effettuare le analisi e altre funzioni;
 + ***viridis***, per le palette di colori;
 + ***ggridges***, per la creazione di *plot ridgeline*;
 + ***ggplot2***, per la creazione di grafici a barre;
 + ***patchwork***, per l'unione dei grafici creati con *ggplot2*.
   
-È stata poi fatta una prima analisi per confrontare l'area di Cortina d'Ampezzo tra il 2019 e il 2025 con i **colori reali** (bande RGB) e visualizzando il suolo nudo utilizzando la banda del **vicino infrarosso** al posto della banda blu.
+È stata poi creata una prima visualizzazione delle immagini per confrontare l'area di Cortina d'Ampezzo tra il 2019 e il 2025, sia con i **colori reali** (bande RGB) sia accentuando il suolo nudo utilizzando la banda del **vicino infrarosso** al posto della banda blu.
 
 ``` R
 setwd("/Users/filippomoratelli/Desktop/UniBo/corsi/telerilevamento/esame") # imposto la work directory
