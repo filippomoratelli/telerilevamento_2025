@@ -6,13 +6,19 @@
 + **maiuscole e minuscole** uniformi, anche nei nomi dei file
 + no **doppi spazi**
 + eventuali **formule** = good
-
-$` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
-
 + qualche **emoji** relativa a quanto scritto ✍️
 + chiamarle **immagini** non foto
 + sapere da che **pacchetti** vengono le funzioni (unica cosa che ha chiesto)
 + no **errori di battitura**
+
+## formule
+
+````md
+$` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
+(usando formattazione LaTeX)
+````
+
+$` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
 
 ## robine cute 🐈
 ````md
@@ -47,7 +53,7 @@ $` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
 > [!CAUTION]
 > ciao
 
-## Foto al centro 🖼️
+## immagine al centro 🖼️
 ````md
 <p align="center">
   <immagine/>
@@ -106,7 +112,10 @@ ciao<sup>ciao</sup>
 ciao<sub>ciao</sub>
 
 ## linee orizzontali
-
+````md
+ 
+---
+````
 riga vuota + tre trattini = linea orizzontale
 
 ---
@@ -114,18 +123,34 @@ riga vuota + tre trattini = linea orizzontale
 ## andare a capo senza fare nuovo paragrafo
 dopo l'ultima parola doppio spazio e a capo
 
-ciao.  
+````md
+ciao + due spazi qui ->    
+ciao
+````
+
+ciao  
 ciao
 
 ---
 che viene diverso da:
+
+````md
+ciao
+ 
+ciao
+````
 
 ciao
 
 ciao (con una riga vuota tra i ciao)
 
 ---
-> andando solo a capo senza doppio spazio non va davvero a capo
+andando solo a capo senza doppio spazio non va davvero a capo
+
+````md
+ciao
+ciao
+````
 
 ciao
 ciao
