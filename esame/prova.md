@@ -61,7 +61,7 @@ $` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
 
 ````md
 <details>
-<summary>cliccare per visualizzare</summary>
+<summary>codice 1 (cliccare qui)</summary>
   perché funzioni deve esserci una riga vuota prima del codice
   
   ``` r
@@ -72,7 +72,7 @@ $` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
 </details>
 ````
 <details>
-<summary>codice 1</summary>
+<summary>codice 1 (cliccare qui)</summary>
   perché funzioni deve esserci una riga vuota prima del codice
   
   ``` r
