@@ -58,7 +58,6 @@ $` NDVI = \frac{(NIR - Red)}{(NIR + Red)} `$
 </p>
 
 ## codice nascosto (più ordinato?) 🐣
-Nessuno l'ha portato però sembra una cosa carina, magari gli piace il codice nascosto
 
 ````md
 <details>
@@ -73,7 +72,7 @@ Nessuno l'ha portato però sembra una cosa carina, magari gli piace il codice na
 </details>
 ````
 <details>
-<summary>cliccare per visualizzare</summary>
+<summary>codice 1</summary>
   perché funzioni deve esserci una riga vuota prima del codice
   
   ``` r
@@ -95,7 +94,6 @@ ciao<sup>ciao</sup>
 
 ciao<sub>ciao</sub>
 
-> non so a cosa possano servire apice e pedice
 ````
 *ciao*
 
@@ -107,16 +105,27 @@ ciao<sup>ciao</sup>
 
 ciao<sub>ciao</sub>
 
-> non so a cosa possano servire apice e pedice
+## linee orizzontali
+
+riga vuota + tre trattini = linea orizzontale
+
+---
 
 ## andare a capo senza fare nuovo paragrafo
-dopo l'ultima parola si fa doppio spazio e si va a capo
+dopo l'ultima parola doppio spazio e a capo
 
 ciao.  
 ciao
 
-+ che viene diverso da:
+---
+che viene diverso da:
 
 ciao
 
 ciao (con una riga vuota tra i ciao)
+
+---
+> andando solo a capo senza doppio spazio non va davvero a capo
+
+ciao
+ciao
